@@ -21,7 +21,8 @@ router.post("/signup", async (req, res) =>
 
 router.post("/login", async (req, res) => 
 {
-  try {
+  try 
+  {
     const { email, password } = req.body;
 
     const user = await User.findOne({ email });
@@ -43,5 +44,12 @@ router.post("/login", async (req, res) =>
     res.status(500).json({ error: err.message });
   }
 });
+
+const verifyToken = require('../middleware/auth'); 
+
+router.get('/me', verifyToken, (req, res) => 
+{ 
+  res.json({ message: 'You are authenticated', userId: req.userId }); 
+})
 
 module.exports = router;
