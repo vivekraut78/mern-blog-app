@@ -62,5 +62,62 @@ router.get("/:id", async (req, res) =>
         res.status(500).json({ error: err.message });
     }
 });
+
+
+
+//Update route(Put)
+router.put('/:id', verifyToken, async (req, res) => 
+{ 
+    try 
+    { 
+        const post = await Post.findById(req.params.id); 
+        if (!post) 
+        { 
+            return res.status(404).json({ error: 'Post not found' }); 
+        } 
+        if (post.author.toString() !== req.userId) 
+        { 
+            return res.status(403).json({ error: 'Not authorized to edit this post' }); 
+        } 
+        const { title, content, tags } = req.body; 
+        if (title) post.title = title; 
+        if (content) post.content = content; 
+        if (tags) post.tags = tags; 
+        await post.save(); 
+        res.json(post); 
+    } 
+    catch (err) 
+    { 
+        res.status(500).json({ error: err.message }); 
+    } 
+});
+
+
+//Delete post route
+router.delete('/:id', verifyToken, async (req, res) => 
+{ 
+    try 
+    { 
+        const post = await Post.findById(req.params.id); 
+        if (!post) 
+        { 
+            return res.status(404).json({ error: 'Post not found' }); 
+        } 
+        if (post.author.toString() !== req.userId) 
+        { 
+            return res.status(403).json({ error: 'Not authorized to delete this post' }); 
+        } 
+        await post.deleteOne();
+        res.json({ message: 'Post deleted successfully' }); 
+    } 
+    catch (err) 
+    { 
+        res.status(500).json({ error: err.message }); 
+    } 
+});
+
+
+
+
 module.exports=router;
 
