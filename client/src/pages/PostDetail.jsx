@@ -1,7 +1,6 @@
+import { Link, useParams, useNavigate } from 'react-router-dom';
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
 import api from "../api";
-import { useNavigate } from "react-router-dom";
 import { jwtDecode } from "jwt-decode";
 
 function PostDetail() 
@@ -35,7 +34,7 @@ function PostDetail()
                     Authorization: `Bearer ${token}` 
                 },
             });
-        navigate("/");
+            navigate("/");
         } 
         catch (err) 
         {
@@ -43,12 +42,11 @@ function PostDetail()
         }
     };
   return (
-    <div className="container mt-4">
+    <div className="container mt-4 singlepost">
         <h2>{post.title}</h2> <p className="text-muted">By {post.author?.name}</p>
         <p>{post.content}</p>
         {
-            currentUserId === post.author?._id && ( <div className="mt-3"> 
-            <button className="btn btn-danger" onClick={handleDelete}>Delete Post</button> </div> )
+            currentUserId === post.author?._id && ( <div className="mt-3"> <Link to={`/edit/${id}`} className="btn btn-secondary me-2">Edit Post</Link> <button className="btn btn-danger" onClick={handleDelete}>Delete Post</button> </div> )
         }
     </div>
   );
