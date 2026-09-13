@@ -2,7 +2,8 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Signup from "./pages/Signup";
 import Login from "./pages/Login";
 import PostList from "./pages/PostList";
- import PostDetail from './pages/PostDetail';
+import PostDetail from './pages/PostDetail';
+import CreatePost from './pages/CreatePost'; 
 
 function App() 
 {
@@ -14,6 +15,7 @@ function App()
         <Route path="/login" element={<Login />} />
         <Route path="/" element={<PostList/>} />
         <Route path="/posts/:id" element={<PostDetail />} />
+         <Route path="/create" element={<CreatePost />} />
       </Routes>
 
     </BrowserRouter>
