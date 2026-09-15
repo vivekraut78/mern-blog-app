@@ -11,9 +11,10 @@ function PostDetail()
     const token = localStorage.getItem("token");
     const [comments, setComments] = useState([]); 
     const [commentText, setCommentText] = useState('');
-    useEffect(() => { api.get(`/comments/${id}`).then((res) => setComments(res.data)); }, [id]);
+    useEffect(() => { api.get(`/comments/${id}`).then((res) => setComments(res.data)); }, [id] );
     let currentUserId = null;
 
+    /*Add Post Comment*/
     const handleAddComment = async (e) => 
     { 
         e.preventDefault(); 
@@ -31,6 +32,7 @@ function PostDetail()
         } 
     };
 
+
     if (token) 
     {
         currentUserId = jwtDecode(token).userId;
@@ -41,7 +43,8 @@ function PostDetail()
     {
         return <p>Loading...</p>;
     }
-        
+       
+    /*Post Deletion Function*/
     const handleDelete = async () => 
     {
         if (!window.confirm("Are you sure you want to delete this post?")) return;
@@ -61,6 +64,23 @@ function PostDetail()
             alert(err.response?.data?.error || "Failed to delete post");
         }
     };
+
+    const handleDeleteComment = async (commentId) => 
+    { 
+        try 
+        { 
+            await api.delete(`/comments/${commentId}`, 
+            { 
+                headers: { Authorization: `Bearer ${token}` } 
+            }); 
+            setComments(comments.filter((c) => c._id !== commentId)); 
+        } 
+        catch (err) 
+        { 
+            alert(err.response?.data?.error || 'Failed to delete comment'); 
+        } 
+    };
+
   return (
     <div className="container mt-4 singlepost">
         <h2>{post.title}</h2> <p className="text-muted">By {post.author?.name}</p>
