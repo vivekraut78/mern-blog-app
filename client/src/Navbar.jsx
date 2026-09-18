@@ -9,37 +9,37 @@ function Navbar()
   };
   return (
     <nav className="navbar navbar-light bg-light mb-3 px-3">
-      {" "}
+      
       <Link className="navbar-brand" to="/">
         Blog Platform
-      </Link>{" "}
+      </Link>
       <div>
-        {" "}
+        
         {token ? (
           <>
-            {" "}
+            
             <Link className="btn btn-sm btn-primary me-2" to="/create">
               New Post
-            </Link>{" "}
+            </Link>
             <button
               className="btn btn-sm btn-outline-secondary"
               onClick={handleLogout}
             >
               Logout
-            </button>{" "}
+            </button>
           </>
         ) : (
           <>
-            {" "}
+            
             <Link className="btn btn-sm btn-outline-primary me-2" to="/login">
               Login
-            </Link>{" "}
+            </Link>
             <Link className="btn btn-sm btn-primary" to="/signup">
               Sign Up
-            </Link>{" "}
+            </Link>
           </>
-        )}{" "}
-      </div>{" "}
+        )}
+      </div>
     </nav>
   );
 }
