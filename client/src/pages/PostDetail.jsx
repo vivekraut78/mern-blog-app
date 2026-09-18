@@ -82,7 +82,7 @@ function PostDetail()
     };
 
   return (
-    <div className="container mt-4 singlepost">
+    <div className="container mt-4 singlepost post-detail-card">
         <h2>{post.title}</h2> <p className="text-muted">By {post.author?.name}</p>
         <p>{post.content}</p>
         {
@@ -98,7 +98,7 @@ function PostDetail()
             <button className="btn btn-primary btn-sm" type="submit">Post Comment</button> </form> )
         } 
         {
-            comments.map((comment) => ( <div key={comment._id} className="border-bottom py-2"> <strong>{comment.author?.name}</strong> <p className="mb-0">{comment.text}</p> </div> ))
+            comments.map((comment) => ( <div key={comment._id} className="border-bottom py-2 comment-item"> <strong>{comment.author?.name}</strong> <p className="mb-0">{comment.text}</p> </div> ))
         }
     </div>
   );

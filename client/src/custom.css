@@ -1,0 +1,62 @@
+.post-card
+{
+    border: none;
+    border-radius: 14px;
+    box-shadow: 14px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.06);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.post-card:hover
+{
+    transform: translateY(-4px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+}
+
+.post-card .card-title 
+{
+  font-weight: 600;
+}
+
+/* --- Post detail page --- */
+.post-detail-card
+{
+    background: #ffffff;
+    border-radius: 14px;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+    padding: 2rem;
+    max-width: 800px;
+}
+
+/* --- Comments --- */
+.comment-item
+{
+    border-radius: 10px;
+    padding: 0.75rem 1rem !important;
+    background: #f8f9fa;
+    margin-bottom: 0.5rem;
+    border-bottom: none !important;
+}
+
+/* --- Navbar polish --- */
+.navbar
+{
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+/* --- Buttons: slight lift on hover --- */
+.btn 
+{
+  transition: transform 0.15s ease;
+}
+
+.btn:hover 
+{
+  transform: translateY(-1px);
+}
+
+/* --- Page background --- */
+body 
+{
+  background-color: #f4f5f7;
+}

@@ -14,7 +14,7 @@ function PostList()
       <h2>All Posts</h2>
       {posts.map((post) => 
       (
-        <div key={post._id} className="card mb-3">
+        <div key={post._id} className="card mb-3 post-card">
           <div className="card-body">
             <h5 className="card-title">{post.title}</h5>
             <p className="card-text text-muted">By {post.author?.name}</p>
