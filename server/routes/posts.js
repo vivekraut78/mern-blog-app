@@ -24,22 +24,28 @@ router.post("/", verifyToken, async (req, res) =>
     }
 });
 
-//Get all posts (public)
-router.get("/", async (req, res) => 
+// GET /api/posts (public) - with pagination + search
+router.get('/', async (req, res) => 
 {
-    try 
-    {
-        const posts = await Post.find()
-        .populate("author", "name email")
-        .sort({ createdAt: -1 });
-        res.json(posts);
-    } 
-    catch (err) 
-    {
-        res.status(500).json({ error: err.message });
-    }
-});
+  try 
+  {
+    const page = parseInt(req.query.page) || 1;
+    const limit = parseInt(req.query.limit) || 5;
+    const search = req.query.search || '';
 
+    const filter = search ? { title: { $regex: search, $options: 'i' } } : {};
+    const totalPosts = await Post.countDocuments(filter);
+
+    const posts = await Post.find(filter).populate('author', 'name email').sort({ createdAt: -1 }).skip((page- 1) * limit).limit(limit);
+    const hasMore = page * limit < totalPosts;
+
+    res.json({ posts, hasMore });
+  } 
+  catch (err) 
+  {
+    res.status(500).json({ error: 'Failed to fetch posts' });
+  }
+});
 
 //Get a single post by ID (public)
 router.get("/:id", async (req, res) => 
@@ -62,8 +68,6 @@ router.get("/:id", async (req, res) =>
         res.status(500).json({ error: err.message });
     }
 });
-
-
 
 //Update route(Put)
 router.put('/:id', verifyToken, async (req, res) => 
@@ -92,7 +96,6 @@ router.put('/:id', verifyToken, async (req, res) =>
     } 
 });
 
-
 //Delete post route
 router.delete('/:id', verifyToken, async (req, res) => 
 { 
@@ -116,4 +119,4 @@ router.delete('/:id', verifyToken, async (req, res) =>
     } 
 });
 
-module.exports=router;
+module.exports = router;
